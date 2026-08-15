@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --background: #09090b;
+  --surface: #18181b;
+  --primary: #7c3aed;
+  --primaryHover: #8b5cf6;
+  --accent: #06b6d4;
+  --text: #fafafa;
+  --muted: #a1a1aa;
+  --border: #27272a;
+}
+
+:root {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.tech,
+.eyebrow,
+.project-number {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
