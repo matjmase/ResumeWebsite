@@ -1,0 +1,21 @@
+<div class="projects">
+  <h2>Projects</h2>
+
+  <div class="flex-row-wrap">
+    @for (image of projectImages; track $index) {
+      <app-image-reveal
+        title="Featured Project"
+        [imageSrc]="image"
+        description="Hover to discover more"
+        imageAlt="Project application screenshot"
+        (fileNameSelected)="openImage($event)"
+      />
+    }
+  </div>
+</div>
+
+<app-custom-dialog title="Project preview">
+  @if (selectedImage()) {
+    <img class="dialog-image" [src]="selectedImage()" alt="Large project application preview" />
+  }
+</app-custom-dialog>

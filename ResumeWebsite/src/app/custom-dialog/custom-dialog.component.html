@@ -1,0 +1,22 @@
+<dialog
+  #dialog
+  class="dialog"
+  [class.closing]="closing()"
+  [attr.aria-label]="title()"
+  (click)="closeFromBackdrop($event)"
+  (cancel)="closeFromEscape($event)"
+  (close)="onNativeClose()"
+>
+  <section class="dialog-panel">
+    <header class="dialog-header">
+      <h2>{{ title() }}</h2>
+      <button type="button" class="close-button" aria-label="Close dialog" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </header>
+
+    <div class="dialog-body">
+      <ng-content />
+    </div>
+  </section>
+</dialog>

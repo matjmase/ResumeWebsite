@@ -1,0 +1,87 @@
+:host {
+  display: block;
+}
+
+.image-reveal {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.25);
+  cursor: pointer;
+
+  img {
+    display: block;
+    width: 250px;
+    // width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition:
+      transform 350ms ease,
+      filter 350ms ease;
+  }
+
+  &:hover img,
+  &:focus-visible img {
+    transform: scale(1.045);
+    filter: saturate(0.75);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+}
+
+.overlay {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  inset: 0;
+  padding: 1.5rem;
+  color: #fff;
+  text-align: center;
+  background: rgb(9 9 11 / 0.78);
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.overlay-content {
+  opacity: 0;
+  transform: translateY(1rem) scale(0.97);
+  transition:
+    opacity 250ms ease,
+    transform 300ms ease;
+
+  h3 {
+    margin: 0;
+    color: #fff;
+  }
+
+  p {
+    margin: 0.4rem 0 0;
+    color: rgb(255 255 255 / 0.78);
+  }
+}
+
+.image-reveal:hover .overlay,
+.image-reveal:focus-visible .overlay,
+.image-reveal:hover .overlay-content,
+.image-reveal:focus-visible .overlay-content {
+  opacity: 1;
+}
+
+.image-reveal:hover .overlay-content,
+.image-reveal:focus-visible .overlay-content {
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-reveal img,
+  .overlay,
+  .overlay-content {
+    transition: none;
+  }
+}

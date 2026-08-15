@@ -1,0 +1,135 @@
+:host {
+  display: contents;
+}
+
+.dialog {
+  width: min(92vw, 72rem);
+  max-height: 90dvh;
+  padding: 0;
+  overflow: visible;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  color: var(--text);
+  background: transparent;
+  box-shadow: 0 2rem 6rem rgb(0 0 0 / 0.65);
+  animation: dialog-in 220ms ease-out;
+
+  &::backdrop {
+    background: rgb(9 9 11 / 0.5);
+    backdrop-filter: blur(8px);
+    animation: backdrop-in 220ms ease-out;
+  }
+
+  &.closing {
+    animation: dialog-out 180ms ease-in forwards;
+
+    &::backdrop {
+      animation: backdrop-out 180ms ease-in forwards;
+    }
+  }
+}
+
+.dialog-panel {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1rem 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+
+  h2 {
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+.close-button {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--muted);
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--primary);
+    color: var(--text);
+    background: color-mix(in srgb, var(--primary) 18%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.dialog-body {
+  max-height: calc(90dvh - 4.1rem);
+  overflow: auto;
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dialog-out {
+  to {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.985);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes backdrop-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 42rem) {
+  .dialog {
+    width: calc(100vw - 1.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .close-button {
+    transition: none;
+  }
+
+  .dialog,
+  .dialog::backdrop {
+    animation: none;
+  }
+}

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { NebulaBackgroundComponent } from './nebula-parallax/nebula-background.component';
+import { NebulaBackgroundComponent } from './nebula-background/nebula-background.component';
 
 @Component({
   selector: 'app-root',
