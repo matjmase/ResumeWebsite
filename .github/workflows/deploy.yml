@@ -40,13 +40,24 @@ jobs:
       - name: Build Angular application
         run: npm run build -- --base-href "/ResumeWebsite/"
 
+      - name: Prepare GitHub Pages files
+        run: |
+          INDEX_FILE="$(find dist -type f -name "index.html" | head -n 1)"
+          test -n "$INDEX_FILE"
+          OUTPUT_DIR="$(dirname "$INDEX_FILE")"
+
+          echo "Using Angular output directory: $OUTPUT_DIR"
+
+          mkdir -p pages-output
+          cp -R "$OUTPUT_DIR"/. pages-output/
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload compiled website
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ResumeWebsite/dist/ResumeWebsite/browser
+          path: ResumeWebsite/pages-output
 
   deploy:
     environment:
