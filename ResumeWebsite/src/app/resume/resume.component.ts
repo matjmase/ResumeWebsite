@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ResumeJobComponent } from '../resume-job/resume-job.component';
 
 @Component({
@@ -9,8 +14,6 @@ import { ResumeJobComponent } from '../resume-job/resume-job.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResumeComponent {
-  private count = 0;
-
   private sql: ResumeTechnologyModel = {
     name: 'SQL Server',
     order: 0,
@@ -111,10 +114,10 @@ export class ResumeComponent {
     order: 16,
   };
 
-  public jobs: ResumeJobModel[] = [
+  public readonly jobs: ResumeJobModel[] = [
     {
       title: 'Software Engineer | Sanusom | Mar 2025 - May 2026',
-      expanded: false,
+      expanded: signal(false),
       description: `Developed full stack healthcare platform solutions using Azure, C#, ASP.NET, Angular, and SQL Server.
  Partner with engineering leadership throughout the SDLC.
  Improved application and database performance for critical business processes.`,
@@ -135,7 +138,7 @@ export class ResumeComponent {
     },
     {
       title: 'Software Engineer | Tri-Imaging Solutions | Jul 2024 - Jan 2025',
-      expanded: false,
+      expanded: signal(false),
       description: `Refactored Angular applications to eliminate duplicate code and improve maintainability.
  Migrated frontend testing from Jasmine/Karma to Jest and repaired ~200 unit tests.
  Integrated automated frontend testing into Azure DevOps pipelines.
@@ -158,7 +161,7 @@ export class ResumeComponent {
     {
       title:
         'Full Stack Software Engineer | Radiology Partners | Oct 2022 - Sep 2023',
-      expanded: false,
+      expanded: signal(false),
       description: `Supported modernization of a radiology desktop platform using Angular and Electron.
  Maintained cloud infrastructure and Kubernetes-hosted healthcare services.
  Developed Kubernetes autoscaling solutions and supported healthcare integrations.
@@ -181,14 +184,14 @@ export class ResumeComponent {
 
     {
       title: 'Junior Software Engineer | L3Harris ForceX | May 2018 - Jul 2019',
-      expanded: false,
+      expanded: signal(false),
       description: `Developed C# WPF software for a U.S. Department of Defense program.`,
       techStack: [this.sql, this.cSharp, this.entityFramework, this.wpf],
     },
 
     {
       title: 'Software Developer | RxIT | Aug 2014 - Aug 2015',
-      expanded: false,
+      expanded: signal(false),
       description: `Built and maintained pharmaceutical automation software.
  Developed SOAP services and supported customer integrations.`,
       techStack: [
@@ -203,29 +206,41 @@ export class ResumeComponent {
     },
   ];
 
-  readonly technologies: ResumeTechnologyModel[] = [
+  public activableTechnologies: ActivatableResumeTechnologyModel[] = [
     ...new Map(
       this.jobs
         .flatMap((job) => job.techStack)
         .map((technology) => [technology.name, technology] as const),
     ).values(),
-  ].sort(
-    (first, second) =>
-      first.order - second.order || first.name.localeCompare(second.name),
-  );
+  ]
+    .sort(
+      (first, second) =>
+        first.order - second.order || first.name.localeCompare(second.name),
+    )
+    .map((tech) => {
+      return {
+        name: tech.name,
+        order: tech.order,
+        isActive: signal<boolean>(false),
+      } as ActivatableResumeTechnologyModel;
+    });
 
   setJobExpanded(selectedIndex: number, expanded: boolean): void {
     this.jobs.forEach((job, index) => {
-      job.expanded = expanded && index === selectedIndex;
+      job.expanded.set(expanded && index === selectedIndex);
     });
-  }
 
-  isTechnologyActive(technology: ResumeTechnologyModel): boolean {
-    return this.jobs.some(
-      (job) =>
-        job.expanded &&
-        job.techStack.some((jobTechnology) => jobTechnology.name === technology.name),
-    );
+    this.activableTechnologies.forEach((tech) => tech.isActive.set(false));
+
+    if (expanded && selectedIndex >= 0 && selectedIndex < this.jobs.length) {
+      const selectedJob = this.jobs[selectedIndex];
+
+      this.activableTechnologies.forEach((tech) => {
+        if (selectedJob.techStack.some((stack) => stack.name === tech.name)) {
+          tech.isActive.set(true);
+        }
+      });
+    }
   }
 }
 
@@ -234,9 +249,13 @@ interface ResumeTechnologyModel {
   order: number;
 }
 
+interface ActivatableResumeTechnologyModel extends ResumeTechnologyModel {
+  isActive: WritableSignal<boolean>;
+}
+
 interface ResumeJobModel {
   title: string;
   description: string;
-  expanded: boolean;
+  expanded: WritableSignal<boolean>;
   techStack: ResumeTechnologyModel[];
 }

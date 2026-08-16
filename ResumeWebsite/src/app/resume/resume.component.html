@@ -37,7 +37,7 @@
         <app-resume-job
           [title]="item.title"
           [description]="item.description"
-          [expanded]="item.expanded"
+          [expanded]="item.expanded()"
           (expandedChange)="setJobExpanded($index, $event)"
         />
       }
@@ -46,8 +46,8 @@
     <section class="focus" aria-labelledby="focus-title">
       <h3 id="focus-title">Core Focus</h3>
       <ul>
-        @for (technology of technologies; track technology.name) {
-          <li [class.active]="isTechnologyActive(technology)">
+        @for (technology of activableTechnologies; track technology.name) {
+          <li [class.active]="technology.isActive()">
             {{ technology.name }}
           </li>
         }
