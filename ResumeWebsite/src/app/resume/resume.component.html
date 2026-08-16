@@ -46,9 +46,9 @@
     <section class="focus" aria-labelledby="focus-title">
       <h3 id="focus-title">Core Focus</h3>
       <ul>
-        @for (technology of activableTechnologies; track technology.name) {
-          <li [class.active]="technology.isActive()">
-            {{ technology.name }}
+        @for (technology of activableTechnologiesDict; track technology[0]) {
+          <li [class.active]="technology[1].isActive()">
+            {{ technology[0] }}
           </li>
         }
       </ul>

@@ -206,7 +206,7 @@ export class ResumeComponent {
     },
   ];
 
-  public activableTechnologies: ActivatableResumeTechnologyModel[] = [
+  private activableTechnologiesArr: ActivatableResumeTechnologyModel[] = [
     ...new Map(
       this.jobs
         .flatMap((job) => job.techStack)
@@ -225,19 +225,25 @@ export class ResumeComponent {
       } as ActivatableResumeTechnologyModel;
     });
 
+  public activableTechnologiesDict = new Map<
+    string,
+    ActivatableResumeTechnologyModel
+  >(this.activableTechnologiesArr.map((tech) => [tech.name, tech]));
+
   setJobExpanded(selectedIndex: number, expanded: boolean): void {
     this.jobs.forEach((job, index) => {
       job.expanded.set(expanded && index === selectedIndex);
     });
 
-    this.activableTechnologies.forEach((tech) => tech.isActive.set(false));
+    this.activableTechnologiesDict.forEach((tech) => tech.isActive.set(false));
 
     if (expanded && selectedIndex >= 0 && selectedIndex < this.jobs.length) {
       const selectedJob = this.jobs[selectedIndex];
 
-      this.activableTechnologies.forEach((tech) => {
-        if (selectedJob.techStack.some((stack) => stack.name === tech.name)) {
-          tech.isActive.set(true);
+      selectedJob.techStack.forEach((tech) => {
+        if (this.activableTechnologiesDict.has(tech.name)) {
+          const found = this.activableTechnologiesDict.get(tech.name);
+          found!.isActive.set(true);
         }
       });
     }
