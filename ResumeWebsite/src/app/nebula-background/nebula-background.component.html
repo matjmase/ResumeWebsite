@@ -1,10 +1,11 @@
 <div class="nebula-scene">
-  <div class="layer back-layer" aria-hidden="true"></div>
-  <div class="layer glow-layer" aria-hidden="true"></div>
-  <div class="layer nebula-layer" aria-hidden="true"></div>
-  <div class="layer star-layer" aria-hidden="true"></div>
-
-  <div class="foreground">
+  <div class="foreground" style="position: relative; height: fit-content">
+    <div class="scoped-layer">
+      <div class="layer back-layer" aria-hidden="true"></div>
+      <div class="layer glow-layer" aria-hidden="true"></div>
+      <div class="layer nebula-layer" aria-hidden="true"></div>
+      <div class="layer star-layer" aria-hidden="true"></div>
+    </div>
     <ng-content />
   </div>
 </div>

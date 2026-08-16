@@ -6,7 +6,6 @@
   position: relative;
   isolation: isolate;
   min-height: calc(100dvh - 4.5rem);
-  overflow: hidden;
   background: var(--background);
 }
 
@@ -219,4 +218,13 @@
   .layer {
     animation: none;
   }
+}
+
+.scoped-layer {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
