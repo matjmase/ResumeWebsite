@@ -38,7 +38,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular application
-        run: npm run build -- --base-href "/ResumeWebsite/"
+  run: npm run build -- --base-href "/ResumeWebsite/" --output-path dist/github-pages
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -46,7 +46,7 @@ jobs:
       - name: Upload compiled website
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ResumeWebsite/dist/ResumeWebsite/browser
+          path: ResumeWebsite/dist/github-pages/browser
 
   deploy:
     environment:
