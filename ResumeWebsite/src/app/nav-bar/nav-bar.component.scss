@@ -35,8 +35,13 @@
     bottom: 0.75rem;
     left: 0.25rem;
     width: 1px;
-    background: linear-gradient(transparent, var(--border) 12%, var(--border) 88%, transparent);
-    content: '';
+    background: linear-gradient(
+      transparent,
+      var(--border) 12%,
+      var(--border) 88%,
+      transparent
+    );
+    content: "";
   }
 
   a {
@@ -48,7 +53,9 @@
     font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;
-    transition: color 160ms ease, background-color 160ms ease;
+    transition:
+      color 160ms ease,
+      background-color 160ms ease;
 
     &::after {
       position: absolute;
@@ -59,16 +66,20 @@
       border: 2px solid var(--primaryHover);
       border-radius: 50%;
       background: var(--background);
-      box-shadow: 0 0 0.75rem color-mix(in srgb, var(--primary) 75%, transparent);
-      content: '';
+      box-shadow: 0 0 0.75rem
+        color-mix(in srgb, var(--primary) 75%, transparent);
+      content: "";
       opacity: 0;
       transform: translateY(-50%) scale(0.4);
-      transition: opacity 160ms ease, transform 160ms ease;
+      transition:
+        opacity 160ms ease,
+        transform 160ms ease;
     }
 
     &:hover,
     &:focus-visible,
     &.active {
+      width: fit-content;
       color: var(--text);
       background: color-mix(in srgb, var(--surface) 72%, transparent);
     }
@@ -86,7 +97,9 @@
 }
 
 @media (max-width: 42rem) {
-  :host { height: auto; }
+  :host {
+    height: auto;
+  }
 
   .site-header {
     height: auto;
@@ -109,9 +122,13 @@
     gap: 1rem;
     scrollbar-width: none;
 
-    &::-webkit-scrollbar { display: none; }
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
-    &::before { display: none; }
+    &::before {
+      display: none;
+    }
 
     a::after {
       top: auto;
@@ -129,11 +146,15 @@
     }
 
     a:hover::after,
-    a.active::after { transform: scaleX(1); }
+    a.active::after {
+      transform: scaleX(1);
+    }
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .nav-links a,
-  .nav-links a::after { transition: none; }
+  .nav-links a::after {
+    transition: none;
+  }
 }

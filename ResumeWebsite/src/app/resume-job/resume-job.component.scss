@@ -1,0 +1,89 @@
+:host {
+  display: block;
+}
+
+.job-heading {
+  margin: 0.9rem 0 0;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0;
+    border: 0;
+    color: var(--text);
+    background: transparent;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    gap: 0.6rem;
+    cursor: pointer;
+
+    &:hover .job-arrow,
+    &:focus-visible .job-arrow {
+      color: var(--accent);
+    }
+
+    &:focus-visible {
+      border-radius: 0.25rem;
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+  }
+}
+
+.job-arrow {
+  width: 18px;
+  height: 18px;
+  padding-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+  line-height: 1;
+
+  transform: rotate(0deg);
+  transform-origin: center;
+  transition:
+    color 200ms ease,
+    transform 300ms ease;
+
+  &.expanded {
+    transform: rotate(90deg);
+  }
+}
+
+.job-description {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transform: translateY(-0.35rem);
+  transition:
+    grid-template-rows 350ms ease,
+    opacity 250ms ease,
+    transform 350ms ease;
+
+  > div {
+    overflow: hidden;
+  }
+
+  p {
+    margin: 0.35rem 0 0.8rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  &.expanded {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .job-arrow,
+  .job-description {
+    transition: none;
+  }
+}

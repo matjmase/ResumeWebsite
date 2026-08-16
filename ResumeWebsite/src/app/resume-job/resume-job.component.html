@@ -1,0 +1,23 @@
+<h4 class="job-heading">
+  <button
+    type="button"
+    [attr.aria-expanded]="jobExpanded()"
+    aria-controls="job1-description"
+    (click)="toggleJob()"
+  >
+    <span class="job-arrow" [class.expanded]="jobExpanded()" aria-hidden="true"
+      >&rsaquo;</span
+    >
+    <span>{{ title() }}</span>
+  </button>
+</h4>
+<div
+  id="job1-description"
+  class="job-description"
+  [class.expanded]="jobExpanded()"
+  [attr.aria-hidden]="!jobExpanded()"
+>
+  <div>
+    <p>{{ description() }}</p>
+  </div>
+</div>

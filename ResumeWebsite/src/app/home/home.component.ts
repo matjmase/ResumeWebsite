@@ -9,6 +9,7 @@ import { AngularMaterialIconComponent } from '../svgIcons/angular-material-icon/
 import { TypeScriptComponent } from '../svgIcons/type-script/type-script.component';
 import { AzureDevOpsComponent } from '../svgIcons/azure-dev-ops/azure-dev-ops.component';
 import { ProjectsComponent } from '../projects/projects.component';
+import { ResumeComponent } from '../resume/resume.component';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,7 @@ import { ProjectsComponent } from '../projects/projects.component';
     AngularMaterialIconComponent,
     AzureDevOpsComponent,
     ProjectsComponent,
+    ResumeComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
