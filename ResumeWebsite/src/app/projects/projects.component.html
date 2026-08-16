@@ -1,18 +1,26 @@
-<div class="projects">
-  <h2>Projects</h2>
+<article class="standard-card" aria-labelledby="about-title">
+  <div class="projects">
+    <div style="text-align: left">
+      <p class="eyebrow">PROJECTS</p>
+    </div>
+    <h2>
+      Selected Work
+      <div class="centered-accent-rule"></div>
+    </h2>
 
-  <div class="flex-row-wrap">
-    @for (project of projects; track $index) {
-      <app-image-reveal
-        [title]="project.title"
-        [imageSrc]="project.image"
-        [description]="project.description"
-        [imageAlt]="project.imageAlt"
-        (fileNameSelected)="openImage($event)"
-      />
-    }
+    <div class="flex-row-wrap">
+      @for (project of projects; track $index) {
+        <app-image-reveal
+          [title]="project.title"
+          [imageSrc]="project.image"
+          [description]="project.description"
+          [imageAlt]="project.imageAlt"
+          (fileNameSelected)="openImage($event)"
+        />
+      }
+    </div>
   </div>
-</div>
+</article>
 
 <app-custom-dialog title="Project preview">
   @if (selectedImage()) {

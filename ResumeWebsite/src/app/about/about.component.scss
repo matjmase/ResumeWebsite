@@ -1,0 +1,73 @@
+:host {
+  display: block;
+  width: min(100%, 68rem);
+  padding: 0 2rem;
+  color: var(--text);
+  text-align: left;
+}
+
+.card-header,
+.card-content,
+.accent-rule {
+  position: relative;
+  z-index: 1;
+}
+
+h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1;
+}
+
+.subtitle {
+  max-width: 46rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.65;
+  text-wrap: balance;
+}
+
+.accent-rule {
+  width: min(20rem, 75%);
+  height: 2px;
+  margin: 1.75rem 0 2rem;
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--accent),
+    transparent
+  );
+}
+
+.card-content {
+  display: grid;
+  max-width: 50rem;
+  gap: 1.75rem;
+
+  section {
+    padding-left: 1rem;
+    border-left: 2px solid color-mix(in srgb, var(--primary) 55%, var(--border));
+  }
+
+  h3 {
+    margin: 0 0 0.55rem;
+    color: var(--text);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 42rem) {
+  :host {
+    padding-inline: 1rem;
+  }
+}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 
 @Component({
   selector: 'app-resume-job',
@@ -8,11 +8,14 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResumeJobComponent {
+  private static nextId = 0;
+
   readonly title = input.required<string>();
   readonly description = input.required<string>();
-  readonly jobExpanded = signal(false);
+  readonly expanded = model(false);
+  readonly descriptionId = `resume-job-description-${ResumeJobComponent.nextId++}`;
 
   toggleJob(): void {
-    this.jobExpanded.update((expanded) => !expanded);
+    this.expanded.update((expanded) => !expanded);
   }
 }
