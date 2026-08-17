@@ -1,5 +1,6 @@
 :host {
   display: block;
+  contain: layout paint;
 }
 
 .job-heading {
@@ -45,6 +46,7 @@
 
   transform: rotate(0deg);
   transform-origin: center;
+  will-change: transform;
   transition:
     color 200ms ease,
     transform 300ms ease;
@@ -59,6 +61,7 @@
   grid-template-rows: 0fr;
   opacity: 0;
   transform: translateY(-0.35rem);
+  will-change: opacity, transform;
   transition:
     grid-template-rows 350ms ease,
     opacity 250ms ease,

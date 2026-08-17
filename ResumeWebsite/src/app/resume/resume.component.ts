@@ -14,6 +14,9 @@ import { ResumeJobComponent } from '../resume-job/resume-job.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResumeComponent {
+  private expandedJobIndex = -1;
+  private activeTechnologyNames = new Set<string>();
+
   private sql: ResumeTechnologyModel = {
     name: 'SQL Server',
     order: 0,
@@ -231,22 +234,39 @@ export class ResumeComponent {
   >(this.activableTechnologiesArr.map((tech) => [tech.name, tech]));
 
   setJobExpanded(selectedIndex: number, expanded: boolean): void {
-    this.jobs.forEach((job, index) => {
-      job.expanded.set(expanded && index === selectedIndex);
+    const nextIndex =
+      expanded && selectedIndex >= 0 && selectedIndex < this.jobs.length
+        ? selectedIndex
+        : -1;
+
+    if (this.expandedJobIndex >= 0 && this.expandedJobIndex !== nextIndex) {
+      this.jobs[this.expandedJobIndex].expanded.set(false);
+    }
+
+    if (nextIndex >= 0) {
+      this.jobs[nextIndex].expanded.set(true);
+    }
+
+    const nextTechnologyNames = new Set(
+      nextIndex >= 0
+        ? this.jobs[nextIndex].techStack.map((technology) => technology.name)
+        : [],
+    );
+
+    this.activeTechnologyNames.forEach((name) => {
+      if (!nextTechnologyNames.has(name)) {
+        this.activableTechnologiesDict.get(name)?.isActive.set(false);
+      }
     });
 
-    this.activableTechnologiesDict.forEach((tech) => tech.isActive.set(false));
+    nextTechnologyNames.forEach((name) => {
+      if (!this.activeTechnologyNames.has(name)) {
+        this.activableTechnologiesDict.get(name)?.isActive.set(true);
+      }
+    });
 
-    if (expanded && selectedIndex >= 0 && selectedIndex < this.jobs.length) {
-      const selectedJob = this.jobs[selectedIndex];
-
-      selectedJob.techStack.forEach((tech) => {
-        if (this.activableTechnologiesDict.has(tech.name)) {
-          const found = this.activableTechnologiesDict.get(tech.name);
-          found!.isActive.set(true);
-        }
-      });
-    }
+    this.expandedJobIndex = nextIndex;
+    this.activeTechnologyNames = nextTechnologyNames;
   }
 }
 
