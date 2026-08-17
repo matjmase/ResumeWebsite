@@ -20,19 +20,12 @@ import { ProjectsComponent } from '../projects/projects.component';
 import { ResumeComponent } from '../resume/resume.component';
 import { AboutComponent } from '../about/about.component';
 import { VerticalStepperRelayService } from '../services/vertical-stepper-relay.service';
+import { SplashComponent } from '../splash/splash.component';
 
 @Component({
   selector: 'app-home',
   imports: [
-    AzureComponent,
-    CSharpComponent,
-    DotNetComponent,
-    SqlServerComponent,
-    CosmosDbComponent,
-    AngularIconComponent,
-    TypeScriptComponent,
-    AngularMaterialIconComponent,
-    AzureDevOpsComponent,
+    SplashComponent,
     ProjectsComponent,
     ResumeComponent,
     AboutComponent,
