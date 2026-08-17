@@ -33,8 +33,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.stepper.GetStepperState().subscribe((val) => {
       this.activeFragment.set(val);
-
-      console.log(val);
     });
   }
   ngOnDestroy(): void {
