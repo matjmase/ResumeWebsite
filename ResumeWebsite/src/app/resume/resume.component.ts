@@ -136,7 +136,6 @@ export class ResumeComponent {
         this.azure,
         this.azurePipelines,
         this.docker,
-        this.kubernetes,
       ],
     },
     {
@@ -157,7 +156,6 @@ export class ResumeComponent {
         this.html,
         this.azure,
         this.azurePipelines,
-        this.docker,
       ],
     },
 
@@ -182,6 +180,7 @@ export class ResumeComponent {
         this.html,
         this.gcp,
         this.docker,
+        this.kubernetes,
       ],
     },
 
